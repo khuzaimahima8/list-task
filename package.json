@@ -17,8 +17,11 @@
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^24.0.3",
     "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "^5.8.3",
     "vite": "^6.2.4",
     "vite-plugin-vue-devtools": "^7.7.2",
+    "vue-tsc": "^2.2.10",
     "wrangler": "^4.20.3"
   }
 }
