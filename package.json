@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudflare/vite-plugin": "^1.7.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },
@@ -17,6 +18,7 @@
     "@types/node": "^24.0.3",
     "@vitejs/plugin-vue": "^5.2.3",
     "vite": "^6.2.4",
-    "vite-plugin-vue-devtools": "^7.7.2"
+    "vite-plugin-vue-devtools": "^7.7.2",
+    "wrangler": "^4.20.3"
   }
 }
