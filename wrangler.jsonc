@@ -2,8 +2,15 @@
     "name": "list-task",
   "compatibility_date": "2025-05-05",
   "assets": {
-    "not_found_handling": "single-page-application"
+   "not_found_handing" : "single-page-application",
+   "binding": "ASSETS"
   },
-  "main": "./api/index.js"
+ "main": "./api/index.js",
+ "d1_database": [
+  {
+    "binding": "DB",
+    "database_name": "List_Task",
+    "database_id": "e72bd52d-ac66-4e02-8519-57d330c57423"
+  }
+ ]
 }
-
