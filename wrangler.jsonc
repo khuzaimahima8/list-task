@@ -2,11 +2,11 @@
     "name": "list-task",
   "compatibility_date": "2025-05-05",
   "assets": {
-   "not_found_handing" : "single-page-application",
+   "not_found_handling" : "single-page-application",
    "binding": "ASSETS"
   },
  "main": "./api/index.js",
- "d1_database": [
+ "d1_databases": [
   {
     "binding": "DB",
     "database_name": "List_Task",
