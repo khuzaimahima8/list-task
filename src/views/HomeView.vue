@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref, onMounted} from 'vue'
+import { RouterLink } from 'vue-router'
 
 interface Task {
     id: number
@@ -25,7 +26,9 @@ onMounted(() => {
 <template>
     <main>
         <div>Daftar Task</div>
-
+<div>
+    <RouterLink to="/task">add Task</RouterLink>
+</div>
         <div>
             <ul>
                 <li v-for="task in task" :key="task.id">
