@@ -11,9 +11,13 @@ interface Task {
 const task = ref<Task[]>([])
 
 const fetchTasks = async () =>{
+    console.log('FETCHING:', '/api/task');
     const response = await fetch('/api/tasks')
-    const data = await response.json()
+    const data = await response.json() as Task[]
+    const text = await response.text();
     task.value = data
+
+    console.log('RESPONSE BODY:', text );
 }
 
 onMounted(() => {
@@ -34,8 +38,8 @@ onMounted(() => {
                 <li v-for="task in task" :key="task.id">
                 <div>{{ task.name }}</div>
                 <div>{{ task.description }}</div>
-                <div>{{ task.deadline }}</div>
-
+               <div>{{ new Date(Number(task.deadline) * 1000).toLocaleString() }}
+               </div>
                 </li>
             </ul>
         </div>
