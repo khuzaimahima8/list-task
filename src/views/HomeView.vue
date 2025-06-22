@@ -11,13 +11,9 @@ interface Task {
 const task = ref<Task[]>([])
 
 const fetchTasks = async () =>{
-    console.log('FETCHING:', '/api/task');
     const response = await fetch('/api/tasks')
     const data = await response.json() as Task[]
-    const text = await response.text();
     task.value = data
-
-    console.log('RESPONSE BODY:', text );
 }
 
 onMounted(() => {
@@ -40,6 +36,9 @@ onMounted(() => {
                 <div>{{ task.description }}</div>
                <div>{{ new Date(Number(task.deadline) * 1000).toLocaleString() }}
                </div>
+               <div>
+               <RouterLink :to="'/task/$(task.id)'">Edit</RouterLink>
+            </div>
                 </li>
             </ul>
         </div>
