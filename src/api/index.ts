@@ -1,27 +1,25 @@
 /// <reference types="@cloudflare/workers-types" />
 
-interface Env {
-  DB: D1Database;
-  ASSETS: Fetcher;
+import { env } from "cloudflare:workers";
+import { Hono } from "hono";
+
+type Bindings = {
+  ASSETS: Fetcher
+  DB: D1Database
 }
+const app = new Hono<{Bindings: Bindings}>()
 
-export default {
-  async fetch(request: Request, env: Env) {
-    const url = new URL(request.url);
+app.get('/api/task', async (c) =>{
+  let {results} = await c.env.DB.prepare("SELECT * FROM task").all()
+  return c.json(results)
+})
 
-    if (url.pathname.startsWith("/api/task")) {
-      if (request.method == 'GET') {
-        const { results } = await env.DB.prepare("SELECT * FROM task").all();
-        return Response.json(results);
-      }
-       else if (request.method == 'POST') {
-        const newId = crypto.randomUUID();
-        const input = await request.json<any>();
-       const query = 'INSERT INTO task(id,name,description,deasline) values ("${newId}","${input.name}","${input.description}","${input.deadline}")';
-        const newTask = await env.DB.exec(query);
-        return Response.json(newTask);
-      }
-    }
-    return env.ASSETS.fetch(request);
-  }
-};
+   app.post('/api/task', async(c) =>{
+    const newId = crypto.randomUUID()
+    const input = await c.req.json<any>()
+    const query = 'INSERT INTO task(id.name,description,deadline) values("${newId}","${input.name}","${input.description}","${input.deadline}"'
+    const newtask = await c.env.DB.exec(query)
+    return c.json(newtask)
+   }) 
+   export default app
+
