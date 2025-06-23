@@ -1,15 +1,15 @@
 {
-    "name": "list-task",
+  "name": "list-task",
   "compatibility_date": "2025-05-05",
   "assets": {
    "not_found_handling" : "single-page-application",
    "binding": "ASSETS"
   },
- "main": "./api/index.js",
+ "main": "src/api/index.ts",
  "d1_databases": [
   {
     "binding": "DB",
-    "database_name": "List_Task",
+    "database_name": "list-task",
     "database_id": "e72bd52d-ac66-4e02-8519-57d330c57423"
   }
  ]
