@@ -26,7 +26,7 @@ const saveData = async () =>{
 </script>
 
 <template>
-    <h1>add Task</h1>
+   <label><h1>add Task</h1></label> 
     <form @submit.prevent="saveData">
         <div>
             <label>Nama</label>

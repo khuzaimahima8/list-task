@@ -11,7 +11,7 @@ interface Task {
 const task = ref<Task[]>([])
 
 const fetchTasks = async () =>{
-    const response = await fetch('/api/tasks')
+    const response = await fetch('/api/task')
     const data = await response.json() as Task[]
     task.value = data
 }
@@ -41,6 +41,6 @@ onMounted(() => {
             </div>
                 </li>
             </ul>
-        </div>
+        </div>  
     </main>
 </template>

@@ -9,25 +9,25 @@ type Bindings = {
 }
 const app = new Hono<{Bindings: Bindings}>()
 
-app.get('/api/task', async (c) =>{
+app.get('/api/tasks', async (c) =>{
   let {results} = await c.env.DB.prepare('SELECT * FROM task').all()
   return c.json(results)
 })
 
-   app.post('/api/task', async(c) =>{
+   app.post('/api/tasks', async(c) =>{
     const newId = crypto.randomUUID()
     const input = await c.req.json<any>()
     const query = 'INSERT INTO task(id.name,description,deadline) values("${newId}","${input.name}","${input.description}","${input.deadline}"'
     const newtask = await c.env.DB.exec(query)
     return c.json(newtask)
    }) 
-   app.get('/api/task', async (c) =>{
+   app.get('/api/tasks', async (c) =>{
     const taskId = c.req.param('id')
   let {results} = await c.env.DB.prepare('SELECT * FROM task WHERE id = ?').bind(taskId).all()
   return c.json(results[0])
 })
 
-app.put('/api/task/:id', async (c) =>{
+app.put('/api/tasks/:id', async (c) =>{
   const taskId = c.req.param('id')
 
   const input = await c.req.json<any>()
@@ -37,7 +37,7 @@ app.put('/api/task/:id', async (c) =>{
   return c.json(task)
 })
 
-app.delete('/api/task/:id', async (c) =>{
+app.delete('/api/tasks/:id', async (c) =>{
   const taskId = c.req.param('id')
 
   const query = 'DELETE FROM task WHERE id = "${taskId}"'
