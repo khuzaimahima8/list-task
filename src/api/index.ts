@@ -1,37 +1,39 @@
 /// <reference types="@cloudflare/workers-types" />
 
-import { env } from "cloudflare:workers";
-import { Hono } from "hono";
+import { Hono } from 'hono'
 
 type Bindings = {
-  ASSETS: Fetcher
   DB: D1Database
+  ASSETS: Fetcher
 }
+
 const app = new Hono<{Bindings: Bindings}>()
 
+//get all tasks
 app.get('/api/tasks', async (c) =>{
   let {results} = await c.env.DB.prepare('SELECT * FROM task').all()
   return c.json(results)
 })
 
-   app.post('/api/tasks', async(c) =>{
-    const newId = crypto.randomUUID()
-    const input = await c.req.json<any>()
-    const query = 'INSERT INTO task(id.name,description,deadline) values("${newId}","${input.name}","${input.description}","${input.deadline}"'
-    const newtask = await c.env.DB.exec(query)
-    return c.json(newtask)
-   }) 
-   app.get('/api/tasks', async (c) =>{
+  //Get task by ID 
+   app.get('/api/tasks/:id', async (c) =>{
     const taskId = c.req.param('id')
   let {results} = await c.env.DB.prepare('SELECT * FROM task WHERE id = ?').bind(taskId).all()
   return c.json(results[0])
 })
+app.post('/api/tasks', async(c) =>{
+    const newId = crypto.randomUUID()
+    const input = await c.req.json<any>()
+    const query = 'INSERT INTO tasks(id, Nama, keterangan, deadline) values (?, ?, ?, ?)'
+    const newTask = await c.env.DB.exec(query)
+    return c.json(newTask)
+   }) 
 
 app.put('/api/tasks/:id', async (c) =>{
   const taskId = c.req.param('id')
 
   const input = await c.req.json<any>()
-  const query = 'UPDATE task SET name = "$(input.name0", description = "${input.description}", deadline = ${input.deadline} WHERE id = "${taskId}"'
+  const query = 'UPDATE task SET Nama = "${input.Nama}", keterangan = "${input.keterangan }", deadline = ${input.deadline} WHERE id = "${taskId}"'
   const task = await c.env.DB.exec(query)
 
   return c.json(task)
@@ -45,6 +47,8 @@ app.delete('/api/tasks/:id', async (c) =>{
 
   return c.json(task)
 })
+
+app.get('*', (c) => c.env.ASSETS.fetch(c.req.raw))
 
    export default app
 

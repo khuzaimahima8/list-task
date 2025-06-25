@@ -3,17 +3,17 @@ import {ref, onMounted} from 'vue'
 import { RouterLink } from 'vue-router'
 
 interface Task {
-    id: number
-    name: string
-    description: string
+    id: string
+    Nama: string
+    keterangan: string
     deadline: string
 }
-const task = ref<Task[]>([])
+const tasks = ref<Task[]>([])
 
 const fetchTasks = async () =>{
     const response = await fetch('/api/task')
     const data = await response.json() as Task[]
-    task.value = data
+    tasks.value = data
 }
 
 onMounted(() => {
@@ -31,9 +31,9 @@ onMounted(() => {
 </div>
         <div>
             <ul>
-                <li v-for="task in task" :key="task.id">
-                <div>{{ task.name }}</div>
-                <div>{{ task.description }}</div>
+                <li v-for="task in tasks" :key="task.id">
+                <div>{{ task.Nama }}</div>
+                <div>{{ task.keterangan }}</div>
                <div>{{ new Date(Number(task.deadline) * 1000).toLocaleString() }}
                </div>
                <div>

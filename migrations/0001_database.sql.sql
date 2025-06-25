@@ -1,8 +1,9 @@
+-- Migration number: 0001 	 2025-06-24T16:09:29.025Z
 -- create table task(
---     id INTEGER PRIMARY KEY,
---     nama TEXT NOT NULL,
---     keterangan TEXT NOT NULL,
---     deadline DATE NOT NULL
+--      id TEXT PRIMARY KEY
+--     Nama TEXT NOT NULL,
+--     keterangan TEXT ,
+--     deadline INTEGER
 -- )
 
 -- sisipkan data awal
