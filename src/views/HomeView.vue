@@ -11,21 +11,28 @@ interface Task {
 const tasks = ref<Task[]>([])
 
 const fetchTasks = async () =>{
-    const response = await fetch('/api/task')
+    const response = await fetch('/api/tasks')
     const data = await response.json() as Task[]
     tasks.value = data
 }
 
 onMounted(() => {
     fetchTasks()
+})
+const removeTask = async (id: string) =>{
+    const response = await fetch(`/api/tasks/${id}`,{
+        method: 'DELETE',
+    })
+    if (response.ok){
+        fetchTasks()
+    }
 }
-)
 
 </script>
 
 <template>
     <main>
-        <div>Daftar Task</div>
+        <div>Daftar Tugas</div>
 <div>
     <RouterLink to="/task">add Task</RouterLink>
 </div>
@@ -38,6 +45,9 @@ onMounted(() => {
                </div>
                <div>
                <RouterLink :to="'/task/$(task.id)'">Edit</RouterLink>
+            </div>
+            <div>
+                <button @click="removeTask(task.id)">Hapus Data</button>
             </div>
                 </li>
             </ul>
