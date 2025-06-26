@@ -31,7 +31,7 @@ const saveData = async () =>{
     console.log('Task created:', data)
     router.push('/')
 } catch (err){
-    console.error('Error saving task:', err)
+    console.error('Failed to parse JSON. Likely HTML or plain text:', err)
     alert('Gagal menyimpan task. cek console')
 }
     } 

@@ -51,7 +51,7 @@ onMounted(async () => {
     <h1 class="text-lg sm:text-2x1 text-center">add taks</h1>
     <form @submit.prevent="saveData">
         <div class="w-full">
-            <label>Nama</label>
+            <label>nama</label>
             <input type="text" v-model="nama"/>
         </div>
         <div>
