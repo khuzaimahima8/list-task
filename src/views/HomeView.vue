@@ -10,21 +10,21 @@ interface Task {
 }
 const tasks = ref<Task[]>([])
 
-const fetchTasks = async () =>{
+const fetchtasks = async () =>{
     const response = await fetch('/api/tasks')
     const data = await response.json() as Task[]
     tasks.value = data
 }
 
 onMounted(() => {
-    fetchTasks()
+    fetchtasks()
 })
 const removeTask = async (id: string) =>{
     const response = await fetch(`/api/tasks/${id}`,{
         method: 'DELETE',
     })
     if (response.ok){
-        fetchTasks()
+        fetchtasks()
     }
 }
 

@@ -9,7 +9,6 @@ const keterangan= ref('')
 const deadline = ref('')
 
 const saveData = async () =>{
-    try{
     const newTask = JSON.stringify({
         nama: Nama.value,
        keterangan: keterangan.value,
@@ -17,31 +16,24 @@ const saveData = async () =>{
     })
 
     const response = await fetch('/api/tasks',{
-        method: 'POST',
+        method: `POST`,
         headers: {'Content-Type': 'application/json'},
         body: newTask,
         
     })
-    if(!response.ok){
-        const errorText = await response.text()
-        console.error('Server error:', errorText)
-        throw new Error('Response is not OK')
-    }
     
     const data = await response.json()
     router.push('/')
-} catch (err){
-    console.error('Failed to parse JSON. Likely HTML or plain text:', err)
-    alert('Gagal menyimpan task. cek console')
 }
-    } 
+
 
 </script>
 
 <template>
-   <label><h1>add Task</h1></label> 
+   <div class="container px-4 py-6 mx-auto w-lg">
+    <h1 class="text-lg sm:text-2x1 text-center">add taks</h1>
     <form @submit.prevent="saveData">
-        <div>
+        <div class="w-full">
             <label>Nama</label>
             <input type="text" v-model="Nama">
         </div>
@@ -54,8 +46,9 @@ const saveData = async () =>{
             <input type="datetime-local" v-model="deadline">
         </div>
 
-        <div>
-            <input type="submit">
+        <div class="mt-3">
+            <button type="submit">simpan</button>
         </div>
     </form>
+    </div>
 </template>

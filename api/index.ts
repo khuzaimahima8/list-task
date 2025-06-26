@@ -1,7 +1,4 @@
-/// <reference types="@cloudflare/workers-types" />
-
 import { Hono } from 'hono'
-import { handle } from 'hono/cloudflare-pages'
 
 type Bindings = {
   DB: D1Database
@@ -12,7 +9,7 @@ const app = new Hono<{Bindings: Bindings}>()
 
 //get all tasks
 app.get('/api/tasks', async (c) =>{
-  let {results} = await c.env.DB.prepare(`SELECT * FROM task`).all()
+  let {results} = await c.env.DB.prepare("SELECT * FROM task").all()
   return c.json(results)
 })
 
@@ -25,9 +22,9 @@ app.get('/api/tasks', async (c) =>{
 app.post('/api/tasks', async(c) =>{
     const newId = crypto.randomUUID()
     const input = await c.req.json<any>()
-    const query = `INSERT INTO task(nama, keterangan, deadline) VALUES (?, ?, ?)`
+    const query = `INSERT INTO events(id,name,place,time) values ("${newId}","${input.name}","${input.place}",${input.time})`
     const newTask = c.env.DB.prepare(query)
-    return c.json({message: 'Task created', data: Body})
+    return c.json(newTask)
 })
 
 app.put('/api/tasks/:id', async (c) =>{

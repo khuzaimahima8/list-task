@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import Input from '@c/omponents/Input.vue';
 
 // / Definisikan tipe data untuk respons API
 interface Task {
@@ -27,11 +26,8 @@ const saveData = async ()=>{
     })
 
     const response = await fetch('/api/taks/${id}', {
-        method: 'PUT',
+        method: `PUT`,
         body: task,
-        headers: {
-            'Content-Type': 'application/json' // Tambahkan header untuk JSON
-        }
     });
     const data = await response.json()
     

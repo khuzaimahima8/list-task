@@ -2,15 +2,16 @@
   "name": "list-tsk2",
   "compatibility_date": "2025-05-05",
   "assets": {
-   "not_found_handling" : "single-page-application",
-   "binding": "ASSETS"
+    "directory" : "./dist",
+   "binding": "ASSETS",
+   "not_found_handling": "single-page-application"
   },
  "main": "./api/index.ts",
  "d1_databases": [{
     "binding": "DB",
     "database_name": "list-tsk2",
     "database_id": "39deda43-e9b4-462d-b5af-5e295991c086",
-    "migrations":  "./0001_database.sql"
+    "migrations_dir":  "./migrations"
   }
   ]
   }
