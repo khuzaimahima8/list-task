@@ -14,7 +14,7 @@ const router = createRouter({
               component: () => import('../views/CreateTaskView.vue')
         },
         {
-            path: '/task/id',
+            path: '/task/:id',
             name: 'edit-task',
             component: () => import('../views/EditTaskView.vue'),
             props: true

@@ -18,17 +18,17 @@ const saveData = async () =>{
 
     const response = await fetch('/api/tasks',{
         method: 'POST',
-        headers: {'content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         body: newTask,
         
     })
     if(!response.ok){
         const errorText = await response.text()
-        throw new Error(`Server error: ${response.status}\n${errorText}`)
-    }   
+        console.error('Server error:', errorText)
+        throw new Error('Response is not OK')
+    }
     
     const data = await response.json()
-    console.log('Task created:', data)
     router.push('/')
 } catch (err){
     console.error('Failed to parse JSON. Likely HTML or plain text:', err)
